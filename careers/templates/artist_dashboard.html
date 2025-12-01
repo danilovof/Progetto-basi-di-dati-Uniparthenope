@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h2>Artist: {{ artist.user.username }}</h2>
+  <p>Genere: {{ artist.genre }}</p>
+  {% if contract %}
+    <p>Contratto: {{ contract.start_date|date:'Y-m-d' }} - {% if contract.end_date %}{{ contract.end_date|date:'Y-m-d' }}{% else %}in corso{% endif %}</p>
+  {% else %}
+    <p>Nessun contratto</p>
+  {% endif %}
+  <p><a href="{% url 'add_track' %}">➕ Aggiungi brano</a> | <a href="{% url 'add_concert' %}">➕ Aggiungi concerto</a></p>
+  <h3>Brani</h3>
+  <ul>{% for t in tracks %}<li>{{ t.title }} — Streams: {{ t.spotify_streams }} — Guadagni: {{ t.spotify_earnings }}</li>{% empty %}<li>Nessun brano</li>{% endfor %}</ul>
+  <h3>Concerti</h3>
+  <ul>{% for c in concerts %}<li>{{ c.date|date:'Y-m-d' }} @ {{ c.venue }} — Incassi: {{ c.revenue }}</li>{% empty %}<li>Nessun concerto</li>{% endfor %}</ul>
+  <h3>Guadagni totali: {{ total_earnings }}</h3>
+{% endblock %}

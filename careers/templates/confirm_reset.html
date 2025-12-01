@@ -1,0 +1,6 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h2>Conferma cancellazione dati</h2>
+  <p>Sei sicuro di voler cancellare tutti i brani e concerti di {{ artist.user.username }}? Questa azione è irreversibile.</p>
+  <form method="post">{% csrf_token %}<button type="submit">Sì, cancella tutto</button> <a href="{% url 'dashboard' %}">Annulla</a></form>
+{% endblock %}

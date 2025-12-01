@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Music Career</title>
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+        <h1><a href="/">Music Career</a></h1>
+        <nav>
+        {% if user.is_authenticated %}
+          <span>Ciao {{ user.username }}</span>
+          <form method="post" action="{% url 'logout' %}" style="display:inline;margin-left:8px;">
+            {% csrf_token %}
+            <button type="submit" style="background:none;border:none;color:#1a73e8;cursor:pointer;padding:0;">Logout</button>
+          </form>
+        {% else %}
+          <a href="{% url 'login' %}">Login</a> | <a href="{% url 'register' %}">Register</a>
+        {% endif %}
+        </nav>
+    </div>
+  </header>
+  <main class="container">
+    {% if messages %}
+      <ul class="messages">
+        {% for m in messages %}<li>{{ m }}</li>{% endfor %}
+      </ul>
+    {% endif %}
+    {% block content %}{% endblock %}
+  </main>
+  <footer class="site-footer">
+    <div class="container">© Music Career</div>
+  </footer>
+</body>
+</html>

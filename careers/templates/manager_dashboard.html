@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h2>Manager: {{ manager.user.username }}</h2>
+  <h3>Artisti</h3>
+  <ul>
+    {% for row in artist_data %}
+      <li>
+        <strong>{{ row.artist.user.username }}</strong> — Genere: {{ row.artist.genre }} — Guadagni: {{ row.total }}
+        {% if row.contract %} | Contratto: {{ row.contract.start_date|date:'Y-m-d' }} - {% if row.contract.end_date %}{{ row.contract.end_date|date:'Y-m-d' }}{% else %}in corso{% endif %}{% endif %}
+        | <a href="{% url 'artist_dashboard' username=row.artist.user.username %}">Vedi</a>
+        | <form style="display:inline" method="post" action="{% url 'reset_artist_stats' artist_id=row.artist.id %}">{% csrf_token %}<button type="submit" onclick="return confirm('Sei sicuro di voler cancellare tutti i brani e concerti di {{ row.artist.user.username }}?');">Azzera e cancella dati</button></form>
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="card">
+  <h2>Registrazione</h2>
+  <form method="post">{% csrf_token %}
+    {{ form.non_field_errors }}
+    <label>Username</label>{{ form.username }}
+    <label>Email</label>{{ form.email }}
+    <label>Password</label>{{ form.password }}
+    <label class="checkbox">{{ form.is_manager }} Registrati come manager</label>
+    <button type="submit">Registrati</button>
+  </form>
+</div>
+{% endblock %}
